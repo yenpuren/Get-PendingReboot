@@ -1,0 +1,56 @@
+https://gallery.technet.microsoft.com/Get-PendingReboot-Query-bdb79542
+
+8/20/2018: 
+
+No longer making updates to Get-PendingReboot on the TechNet Script Center Gallery.  I've published this function as a module on github.com and PowerShellGallery.com, follow the link below to see the new project.
+
+https://github.com/bcwilhite/PendingReboot
+https://www.powershellgallery.com/packages/PendingReboot/
+
+You can also download this via PowerShell, by using Install-Module (PowerShellGet), syntax follows:
+
+Install-Module PendingReboot
+
+You can however continue to download the TechNet Script Center version from the download button above.
+
+ 07/27/2015:
+-Added Domain Join detection to PendComputerRename, DOES NOT currently detect Workgroup Join/Change.
+-Fixed Bug where a computer rename was not detected in 2008 R2 and above if a domain join occurred at the same time.
+
+07/21/2015:
+-This function no longer uses the .Net registry provider, it uses the StdRegProv WMI provider for more flexibility when using the ComputerName parameter to connect remotely.
+-Added Pending Computer Rename - Detects whether or not a machine is pending a name change requiring a reboot.
+-Fixed Bug where the CBServicing wasn't detected on Windows 10 and/or Windows Server Technical Preview (2016)
+
+06/2013:
+-SCCM Pending Reboot CCMClientSDK
+
+Initial Release:
+This function will query the registry on a local or remote computer and determine if the system is pending a reboot, from either Microsoft Patching or a Software Installation. For Windows 2008 & above the function will query the CBS registry key as another factor in determining pending reboot state.  "PendingFileRenameOperations" and "Auto Update\RebootRequired" are observed as being consistant across Windows Server 2003 & 2008. 
+
+This function was featured on the Hey, Scripting Guy! Blog on June 10th/11th, 2013:
+
+https://blogs.technet.microsoft.com/heyscriptingguy/2013/06/10/determine-pending-reboot-statuspowershell-style-part-1/
+
+https://blogs.technet.microsoft.com/heyscriptingguy/2013/06/11/determine-pending-reboot-statuspowershell-style-part-2/
+
+You must load this "script" as a "function" by "dot sourcing" the .ps1 file, as in the following example:
+PS C:\> . .\Get-PendingReboot.ps1
+This example assumes the path to the Get-PendingReboot.ps1 file is relative to the current directory.
+
+Then the Function can be run:
+PS C:\> Get-PendingReboot -ComputerName WKS01, WKS02, SVR01
+
+Verified on the following platforms
+Windows 10	No
+Windows Server 2012	Yes
+Windows Server 2012 R2	No
+Windows Server 2008 R2	Yes
+Windows Server 2008	Yes
+Windows Server 2003	Yes
+Windows Server 2016	No
+Windows 8	Yes
+Windows 7	Yes
+Windows Vista	Yes
+Windows XP	Yes
+Windows 2000	No
